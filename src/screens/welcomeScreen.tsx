@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import BaseScreen from '../components/baseScreen';
 import images from '../images';
-import Camera from 'react-native-camera/types';
+import Camera from 'react-native-camera';
 import ImageRecognizer from '../ImageRecognizer'
 
 export class WelcomeScreen extends React.Component {
@@ -37,30 +37,52 @@ export class WelcomeScreen extends React.Component {
     }
     async takePicture() {
         const options = {};
-        try {
-            const data = await this.camera.capture({ 
-                metadata: options, 
-                captureTarget: Camera.constants.CaptureTarget.temp, 
-                captureQuality: Camera.constants.CaptureQuality["480p"]
-            });
-            if(data) {
-                alert(data.path);
-                const results = await this.recognizer.recognize({
-                    image: data.path,
-                    inputName: 'Placeholder',
-                    outputName: 'loss',
-                });
-                if (results.length > 0) {
-                    alert(`Name: ${results[0].name} - Confidence: ${results[0].confidence}`);
-                } else {
-                    alert(`Nada...`);
-                }
-            }
+        try
+        {
+          const data = await this.camera.capture({metadata: options});
+          alert("Picture taken yay");
+          const results = await this.recognizer.recognize({
+            image: data.path,
+            inputName: 'Placeholder',
+            outputName: 'loss',
+          });
+          if (results.length > 0) {
+            alert(`Name: ${results[0].name} - Confidence: ${results[0].confidence.toFixed(2)}`);
+          } else {
+              alert('nada')
+          }
         }
-        catch (err) {
-            alert(err);
+        catch (err)
+        {
+          alert(err);
         }
-    }
+      }
+    // async takePicture() {
+    //     const options = {};
+    //     try {
+    //         const data = await this.camera.capture({ 
+    //             metadata: options, 
+    //             captureTarget: Camera.constants.CaptureTarget.temp, 
+    //             captureQuality: Camera.constants.CaptureQuality["480p"]
+    //         });
+    //         if(data) {
+    //             alert(data.path);
+    //             const results = await this.recognizer.recognize({
+    //                 image: data.path,
+    //                 inputName: 'Placeholder',
+    //                 outputName: 'loss',
+    //             });
+    //             if (results.length > 0) {
+    //                 alert(`Name: ${results[0].name} - Confidence: ${results[0].confidence}`);
+    //             } else {
+    //                 alert(`Nada...`);
+    //             }
+    //         }
+    //     }
+    //     catch (err) {
+    //         alert(err);
+    //     }
+    // }
 }
 
 const styles = StyleSheet.create({
