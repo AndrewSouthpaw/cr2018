@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { StyleSheet, View, Text, Image, TouchableOpacity, ImageRequireSource } from 'react-native';
-import CodePush from '../components/codePush';
+import CodePush from './codePush';
 import { ifIphoneX } from 'react-native-iphone-x-helper'
 
 export type Props = {

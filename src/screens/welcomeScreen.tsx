@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text, StyleSheet, Image, Platform } from 'react-native';
 import BaseScreen from '../components/baseScreen';
 import images from '../images';
-import Camera from 'react-native-camera';
+import Camera from 'react-native-camera/types';
 import ImageRecognizer from '../ImageRecognizer'
 
 export class WelcomeScreen extends React.Component {
